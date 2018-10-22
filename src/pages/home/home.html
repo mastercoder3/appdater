@@ -1,18 +1,69 @@
 <ion-header>
+
   <ion-navbar>
+
     <button ion-button menuToggle>
+  
       <ion-icon name="menu"></ion-icon>
+  
     </button>
-    <ion-title>Home</ion-title>
+  
+    <ion-icon name="search"></ion-icon>
+  
   </ion-navbar>
+  
+  <ion-segment [(ngModel)]="requests">
+
+    <ion-segment-button value="channels">
+      Chanels
+    </ion-segment-button>
+    
+    <ion-segment-button value="feed">
+      Feed
+    </ion-segment-button>
+
+    <ion-segment-button value="store">
+      Store
+    </ion-segment-button>
+
+  </ion-segment>
+
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <div [ngSwitch]="requests">
+    
+    <ion-list *ngSwitchCase="'channels'" no-lines>
+      
+      <ion-item>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+        <p>I am news channels feed</p>
+      
+      </ion-item>
+
+    </ion-list>
+  
+    <ion-list *ngSwitchCase="'feed'" no-lines>
+      
+      <ion-item>
+
+        <p>I am news feed</p>
+
+      </ion-item>
+      
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'store'" no-lines>
+    
+      <ion-item>
+    
+        <p>I am book store</p>
+    
+      </ion-item>
+    
+    </ion-list>
+    
+  </div>
+
 </ion-content>

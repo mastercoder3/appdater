@@ -7,8 +7,10 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  requests: string;
 
-  }
+  constructor(public navCtrl: NavController) { 
+    this.requests = "channels";
+   }
 
 }

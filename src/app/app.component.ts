@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { componentFactoryName } from '@angular/compiler';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,14 +17,35 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
+  communicatePages: Array<{ title: string, component: any }>
+
+  settingPages : Array<{title: string, component: any}>
+
+
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'Managed Sources', component: "Managed Sources" },
+      { title: 'Saved', component: "Saved" }
     ];
+
+    this.settingPages = [
+      { title: 'Font size', component: "Font size" },
+      { title: 'Day/Night Mode', component: "Day/Night Mode" },
+      { title: 'Video', component: "Video" },
+      { title: 'Notifications', component: "Notifications" },
+      { title: 'Language', component: "Language" }
+    ]
+
+    this.communicatePages = [
+      { title: 'Share', component: "Share" },
+      { title: 'Send Feedback', component: "Send Feedback" },
+      { title: 'About', component: "About" },
+    ]
 
   }
 
