@@ -12,6 +12,8 @@ import { ApiserviceProvider } from '../providers/apiservice/apiservice';
 import { HttpClientModule  } from "@angular/common/http";
 import { HelperProvider } from '../providers/helper/helper';
 import { ArticlePage } from '../pages/article/article';
+import { ChannelPage } from '../pages/channel/channel';
+import { ChanneldataPage } from '../pages/channeldata/channeldata';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { ArticlePage } from '../pages/article/article';
     MyApp,
     HomePage,
     ListPage,
-    ArticlePage
+    ArticlePage,
+    ChannelPage,
+    ChanneldataPage
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +35,9 @@ import { ArticlePage } from '../pages/article/article';
     MyApp,
     HomePage,
     ListPage,
-    ArticlePage
+    ArticlePage,
+    ChannelPage,
+    ChanneldataPage
   ],
   providers: [
     ApiserviceProvider,

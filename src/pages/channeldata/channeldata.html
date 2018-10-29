@@ -1,0 +1,29 @@
+<!--
+  Generated template for the ArticlePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-title>{{article.title}}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div card-image>
+    <img class="center" [src]="article.urlToImage" />
+    <br>
+    <div title-block>
+      <!--Card Title-->
+      <ion-title style="text-align:center;">{{article.title | slice:0:60}}</ion-title>
+      <p card-title text-capitalize style="text-align: center;">{{article.content}}</p>
+    </div>
+  </div>
+
+</ion-content>

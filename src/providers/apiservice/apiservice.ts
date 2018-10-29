@@ -24,4 +24,24 @@ export class ApiserviceProvider {
     return this.httpClient.get<NewsApi>(this.urlTechcrunch);
   }
 
+  getUrlBBC(): Observable<NewsApi> {
+    return this.httpClient.get<NewsApi>(this.urlBBC);
+  }
+
+  getUrlTechradar(): Observable<NewsApi> {
+    return this.httpClient.get<NewsApi>(this.urlTechcrunch);
+  }
+
+  getUrlTime(): Observable<NewsApi> {
+    return this.httpClient.get<NewsApi>(this.urlTime);
+  }
+
+  getUrlAryNews(): Observable<NewsApi> {
+    return this.httpClient.get<NewsApi>(this.urlAryNews);
+  }
+
+  getUrlAndroidauthority(): Observable<NewsApi> {
+    return this.httpClient.get<NewsApi>(this.urlAndroidAuthority);
+  }
+
 }

@@ -4,6 +4,7 @@ import { NewsApi } from '../../modals/newapi';
 import { ApiserviceProvider } from '../../providers/apiservice/apiservice';
 import { HelperProvider } from '../../providers/helper/helper';
 import { ArticlePage } from '../article/article';
+import { ChannelPage } from '../channel/channel';
 
 @Component({
   selector: 'page-home',
@@ -14,6 +15,7 @@ export class HomePage {
   requests: string;
   newsData: NewsApi;
   techcrunchData: NewsApi;
+  androidauthorityData: NewsApi;
 
   constructor(public navCtrl: NavController, private apiNews: ApiserviceProvider, private helper: HelperProvider) {
     this.requests = "channels";
@@ -33,6 +35,48 @@ export class HomePage {
   getTechcrunch(){
     this.apiNews.getTechcrunch().subscribe(resp => {
       this.techcrunchData = resp;
+    })
+  }
+
+  getUrlAndroidauthority(){
+    this.apiNews.getUrlAndroidauthority().subscribe(resp => {
+      this.androidauthorityData = resp;
+      this.navCtrl.push(ChannelPage, {channel: this.androidauthorityData})
+    })
+  }
+
+  getUrlTechcrunch() {
+    this.apiNews.getTechcrunch().subscribe(resp => {
+      this.androidauthorityData = resp;
+      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
+    })
+  }
+
+  getUrlBBC() {
+    this.apiNews.getUrlBBC().subscribe(resp => {
+      this.androidauthorityData = resp;
+      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
+    })
+  }
+
+  getUrlTime() {
+    this.apiNews.getUrlTime().subscribe(resp => {
+      this.androidauthorityData = resp;
+      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
+    })
+  }
+
+  getUrlTechradar() {
+    this.apiNews.getUrlTechradar().subscribe(resp => {
+      this.androidauthorityData = resp;
+      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
+    })
+  }
+
+  getUrlAryNews() {
+    this.apiNews.getUrlAryNews().subscribe(resp => {
+      this.androidauthorityData = resp;
+      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
     })
   }
 
