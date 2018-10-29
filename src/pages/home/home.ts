@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NewsApi } from '../../modals/newapi';
 import { ApiserviceProvider } from '../../providers/apiservice/apiservice';
-import { Observable } from 'rxjs/Observable';
+import { HelperProvider } from '../../providers/helper/helper';
+import { ArticlePage } from '../article/article';
 
 @Component({
   selector: 'page-home',
@@ -11,17 +12,34 @@ import { Observable } from 'rxjs/Observable';
 export class HomePage {
 
   requests: string;
-  newsData: Observable<NewsApi>;
+  newsData: NewsApi;
+  techcrunchData: NewsApi;
 
-  constructor(public navCtrl: NavController, public apiNews: ApiserviceProvider) { 
+  constructor(public navCtrl: NavController, private apiNews: ApiserviceProvider, private helper: HelperProvider) {
     this.requests = "channels";
    }
 
-   ngOnInit(){
-    this.newsData =  this.apiNews.getNews();
-    this.newsData.subscribe(resp => {
-      console.log(resp)
+  onItemClick(item: any, e: any) {
+    if (e) {
+      e.stopPropagation();
+    }
+    this.helper.presentToast(item.title, 3000, 'bottom')
+  }
+
+  readMore(item){
+    this.navCtrl.push(ArticlePage, {article: item})
+  }
+
+  getTechcrunch(){
+    this.apiNews.getTechcrunch().subscribe(resp => {
+      this.techcrunchData = resp;
     })
+  }
+
+   ngOnInit(){
+     this.apiNews.getNews().subscribe(resp => {
+       this.newsData =resp;
+     })
    }
 
 }

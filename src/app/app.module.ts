@@ -9,14 +9,20 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiserviceProvider } from '../providers/apiservice/apiservice';
+import { HttpClientModule  } from "@angular/common/http";
+import { HelperProvider } from '../providers/helper/helper';
+import { ArticlePage } from '../pages/article/article';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ArticlePage
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
   ],
@@ -24,13 +30,15 @@ import { ApiserviceProvider } from '../providers/apiservice/apiservice';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ArticlePage
   ],
   providers: [
     ApiserviceProvider,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    HelperProvider
   ]
 })
 export class AppModule {}

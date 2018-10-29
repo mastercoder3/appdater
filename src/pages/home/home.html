@@ -38,29 +38,114 @@
       
       <ion-item>
 
-        <p>I am news channels feed</p>
-      
+        <ion-grid>
+
+          <ion-row>
+          
+            <ion-col col-4>
+              <ion-row>
+              <img width="80" height="80" src="//logo.clearbit.com/androidauthority.com">
+              </ion-row>
+              <ion-row align-center>
+              <button ion-button small color="light">Follow</button>
+              </ion-row>
+            </ion-col>
+          
+            <ion-col col-4>
+              <ion-row>
+              <img width="80" height="80"
+              src="//logo.clearbit.com/arynews.tv">
+              </ion-row>
+              <ion-row>
+              <button ion-button small color="light">Follow</button>
+              </ion-row>
+            </ion-col>
+
+            <ion-col col-4>
+              <ion-row>
+              <img width="80" height="80"
+              src="//logo.clearbit.com/bbc.com">
+              </ion-row>
+              <ion-row>
+              <button ion-button small color="light">Follow</button>
+              </ion-row>
+            </ion-col>
+          
+          </ion-row>
+          
+          <ion-row>
+          
+            <ion-col col-4>
+              <ion-row>
+              <img width="80" height="80" src="//logo.clearbit.com/techradar.com">
+              </ion-row>
+              <ion-row>
+              <button ion-button small color="light">Follow</button>
+              </ion-row>
+            </ion-col>
+          
+            <ion-col col-4>
+              <ion-row>
+              <img width="80" height="80" src="//logo.clearbit.com/techcrunch.com">
+              </ion-row>
+              <ion-row>
+              <button ion-button small color="light" (click)="getTechcrunch()">Follow</button>
+              </ion-row>
+            </ion-col>
+        
+            <ion-col col-4>
+              <ion-row>
+              <img width="80" height="80"
+              src="//logo.clearbit.com/time.com">
+              </ion-row>
+              <ion-row>
+              <button ion-button small color="light">Follow</button>
+              </ion-row>
+            </ion-col>
+        
+          </ion-row>
+        
+        </ion-grid> 
+
       </ion-item>
 
     </ion-list>
   
     <ion-list *ngSwitchCase="'feed'" no-lines>
       
-      <ion-item>
-
-        <p>I am news feed</p>
-
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12 col-md-6 col-lg-4 *ngFor="let item of newsData.articles" (click)="onItemClick(item, $event)">
+            <ion-card text-left box-shadow margin-bottom *ngIf="item.urlToImage != null">
+              <!--Card Image-->
+              <div card-image>
+                <img [src]="item.urlToImage" id="loaded" />
+                <br>
+                <div title-block>
+                  <!--Card Title-->
+                  <h2 card-title text-capitalize style="text-align: center;">{{item.description | slice:0:60}}</h2>
+                </div>
+              </div>
+              <!--Card descriptiom-->
+              <ion-card-content>
+                <ion-card-title margin-bottom no-padding>
+                  <ion-item transparent no-padding>
+                    <!--Card Subtitle-->
+                    <h1 card-subtitle item-start>{{item.source.name}}</h1>
+                  </ion-item>
+                </ion-card-title>
+                <button block default-button ion-button (click)="readMore(item)">Read More</button>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       
     </ion-list>
 
     <ion-list *ngSwitchCase="'store'" no-lines>
     
-      <ion-item>
     
-        <p>I am book store</p>
-    
-      </ion-item>
     
     </ion-list>
     
