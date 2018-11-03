@@ -40,9 +40,7 @@
     <ion-list *ngSwitchCase="'channels'" no-lines>
       
       <ion-item *ngFor="let title of channels| async;">
-        <ion-row>
-          <img width="80" height="80" [src]="title.channelDomainUrl" (click)="getByDomain(title.channelDomain)">
-        </ion-row>
+        <img width="80" height="80" [src]="title.channelDomainUrl" (click)="getByDomain(title.channelDomain)">
       </ion-item>
 
     </ion-list>
