@@ -38,10 +38,16 @@
   <div [ngSwitch]="requests">
     
     <ion-list *ngSwitchCase="'channels'" no-lines>
-      
-      <ion-item *ngFor="let title of channels| async;">
-        <img width="80" height="80" [src]="title.channelDomainUrl" (click)="getByDomain(title.channelDomain)">
+
+      <ion-grid >
+      <ion-item >
+          <ion-row>
+            <ion-col *ngFor="let title of channels| async;" col-4>
+                <img width="80" height="80" [src]="title.channelDomainUrl" (click)="getByDomain(title.channelDomain)">
+            </ion-col>
+          </ion-row> 
       </ion-item>
+      </ion-grid>
 
     </ion-list>
   
