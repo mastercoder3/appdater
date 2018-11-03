@@ -1,9 +1,18 @@
 <ion-header>
 
   <ion-navbar>
-
-    <ion-title>Channel Page</ion-title>
-
+  
+    <button ion-button menuToggle>
+  
+      <ion-icon name="menu"></ion-icon>
+  
+    </button>
+  
+    <ion-icon (click)="toggle()" name="search" *ngIf="!toggled"></ion-icon>
+    <ion-searchbar *ngIf="toggled" [(ngModel)]="someValue" (ionInput)="searchThis($event)" (ionCancel)="cancelSearch($event)"
+      (ionClear)="clearSearch($event)" [showCancelButton]="true" placeholder="Search Channels">
+    </ion-searchbar>
+  
   </ion-navbar>
 
 </ion-header>

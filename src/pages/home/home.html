@@ -8,7 +8,10 @@
   
     </button>
   
-    <ion-icon name="search"></ion-icon>
+    <ion-icon (click)="toggle()" name="search" *ngIf="!toggled"></ion-icon>
+    <ion-searchbar *ngIf="toggled" [(ngModel)]="someValue" (ionInput)="searchThis($event)" (ionCancel)="cancelSearch($event)"
+      (ionClear)="clearSearch($event)" [showCancelButton]="true" placeholder="Search Channels">
+    </ion-searchbar>
   
   </ion-navbar>
   
@@ -36,67 +39,22 @@
     
     <ion-list *ngSwitchCase="'channels'" no-lines>
       
-      <ion-item>
-
-        <ion-grid>
-
-          <ion-row>
-          
-            <ion-col col-4>
-              <ion-row>
-              <img width="80" height="80" src="//logo.clearbit.com/androidauthority.com" (click) = "getUrlAndroidauthority()">
-              </ion-row>
-            </ion-col>
-          
-            <ion-col col-4>
-              <ion-row>
-              <img width="80" height="80"
-              src="//logo.clearbit.com/arynews.tv" (click) = "getUrlAryNews()">
-              </ion-row>
-            </ion-col>
-
-            <ion-col col-4>
-              <ion-row>
-              <img width="80" height="80"
-              src="//logo.clearbit.com/bbc.com" (click) = "getUrlBBC()">
-              </ion-row>
-            </ion-col>
-          
-          </ion-row>
-          
-          <ion-row>
-          
-            <ion-col col-4>
-              <ion-row>
-              <img width="80" height="80" src="//logo.clearbit.com/techradar.com" (click) = "getUrlTechradar()">
-              </ion-row>
-            </ion-col>
-          
-            <ion-col col-4>
-              <ion-row>
-              <img width="80" height="80" src="//logo.clearbit.com/techcrunch.com" (click) = "getUrlTechcrunch()">
-              </ion-row>
-            </ion-col>
-        
-            <ion-col col-4>
-              <ion-row>
-              <img width="80" height="80"
-              src="//logo.clearbit.com/time.com" (click) = "getUrlTime()">
-              </ion-row>
-            </ion-col>
-        
-          </ion-row>
-        
-        </ion-grid> 
-
+      <ion-item *ngFor="let title of channels| async;">
+        <ion-row>
+          <img width="80" height="80" [src]="title.channelDomainUrl" (click)="getByDomain(title.channelDomain)">
+        </ion-row>
       </ion-item>
 
     </ion-list>
   
     <ion-list *ngSwitchCase="'feed'" no-lines>
+      <ion-navbar>
+        <ion-searchbar #q  (keyup.enter)="searchByKeyword(q.value)" placeholder="Search Channels">
+        </ion-searchbar>
       
+      </ion-navbar>
       <ion-grid>
-        <ion-row>
+        <ion-row *ngIf="newsData">
           <ion-col col-12 col-md-6 col-lg-4 *ngFor="let item of newsData.articles" (click)="onItemClick(item, $event)">
             <ion-card text-left box-shadow margin-bottom *ngIf="item.urlToImage != null">
               <!--Card Image-->

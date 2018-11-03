@@ -22,7 +22,6 @@ export class ChanneldataPage {
   }
 
   ionViewDidLoad() {
-    console.log(this.article);
   }
 
 }

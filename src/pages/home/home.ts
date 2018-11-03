@@ -5,6 +5,9 @@ import { ApiserviceProvider } from '../../providers/apiservice/apiservice';
 import { HelperProvider } from '../../providers/helper/helper';
 import { ArticlePage } from '../article/article';
 import { ChannelPage } from '../channel/channel';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { FirestoreProvider } from '../../providers/firestore/firestore';
 
 @Component({
   selector: 'page-home',
@@ -14,12 +17,24 @@ export class HomePage {
 
   requests: string;
   newsData: NewsApi;
-  techcrunchData: NewsApi;
-  androidauthorityData: NewsApi;
+  dataByDomain: NewsApi; 
+  toggled: boolean;
+  myInput;
+  channels: Observable<any>;
+  channelName: any;
 
-  constructor(public navCtrl: NavController, private apiNews: ApiserviceProvider, private helper: HelperProvider) {
+  constructor(public navCtrl: NavController, private apiNews: ApiserviceProvider, private helper: HelperProvider, private firestore: FirestoreProvider) {
     this.requests = "channels";
+    this.toggled = false;
    }
+
+  toggle(){
+    this.toggled = !this.toggled;
+  }
+
+  cancelSearch($event){
+    this.toggled = false;
+  }
 
   onItemClick(item: any, e: any) {
     if (e) {
@@ -32,58 +47,36 @@ export class HomePage {
     this.navCtrl.push(ArticlePage, {article: item})
   }
 
-  getTechcrunch(){
-    this.apiNews.getTechcrunch().subscribe(resp => {
-      this.techcrunchData = resp;
+  getByDomain(domain){
+    this.apiNews.getByDomain(domain).subscribe(resp => {
+      this.dataByDomain = resp;
+      this.navCtrl.push(ChannelPage, { channel: this.dataByDomain })
     })
   }
 
-  getUrlAndroidauthority(){
-    this.apiNews.getUrlAndroidauthority().subscribe(resp => {
-      this.androidauthorityData = resp;
-      this.navCtrl.push(ChannelPage, {channel: this.androidauthorityData})
-    })
-  }
-
-  getUrlTechcrunch() {
-    this.apiNews.getTechcrunch().subscribe(resp => {
-      this.androidauthorityData = resp;
-      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
-    })
-  }
-
-  getUrlBBC() {
-    this.apiNews.getUrlBBC().subscribe(resp => {
-      this.androidauthorityData = resp;
-      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
-    })
-  }
-
-  getUrlTime() {
-    this.apiNews.getUrlTime().subscribe(resp => {
-      this.androidauthorityData = resp;
-      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
-    })
-  }
-
-  getUrlTechradar() {
-    this.apiNews.getUrlTechradar().subscribe(resp => {
-      this.androidauthorityData = resp;
-      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
-    })
-  }
-
-  getUrlAryNews() {
-    this.apiNews.getUrlAryNews().subscribe(resp => {
-      this.androidauthorityData = resp;
-      this.navCtrl.push(ChannelPage, { channel: this.androidauthorityData })
+  searchByKeyword(value) {
+    this.apiNews.getSearchQuery(value).subscribe(resp => {
+      this.newsData = resp;
     })
   }
 
    ngOnInit(){
      this.apiNews.getNews().subscribe(resp => {
        this.newsData =resp;
+       console.log(this.newsData);
      })
+
+     this.channels = this.firestore.getChannels().pipe(map(
+       list => {
+         return list.map(
+           items => {
+             const data = items.payload.doc.data();
+             const id = items.payload.doc.id;
+             return { id, ...data }
+           }
+         )
+       }
+     ));
    }
 
 }

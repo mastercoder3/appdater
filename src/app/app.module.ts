@@ -14,6 +14,11 @@ import { HelperProvider } from '../providers/helper/helper';
 import { ArticlePage } from '../pages/article/article';
 import { ChannelPage } from '../pages/channel/channel';
 import { ChanneldataPage } from '../pages/channeldata/channeldata';
+import { FirestoreProvider } from '../providers/firestore/firestore';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { environment } from '../environment';
 
 
 @NgModule({
@@ -23,12 +28,15 @@ import { ChanneldataPage } from '../pages/channeldata/channeldata';
     ListPage,
     ArticlePage,
     ChannelPage,
-    ChanneldataPage
+    ChanneldataPage,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.config),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,7 +52,8 @@ import { ChanneldataPage } from '../pages/channeldata/channeldata';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HelperProvider
+    HelperProvider,
+    FirestoreProvider
   ]
 })
 export class AppModule {}
